@@ -26,21 +26,19 @@ export const ContactForm = () => {
     }
   };
 
-  const formSubmit = (newContact) => {
+  const  handleSubmit = (event) => {
+    event.preventDefault();
+    const newContact = {name, number, id: nanoid() };
     const isExist = contacts.find(
       contact =>
         contact.name.toLowerCase().trim() === newContact.name.toLowerCase().trim()
     );
     if (isExist) {
-      return alert(`${newContact.name} is already in contacts`);
-    }
-    dispatch(addContact(newContact));
-};
-
-  const  handleSubmit = (event) => {
-    event.preventDefault();
-    formSubmit({name, number, id: nanoid() });
-    event.target.reset();
+      return alert(`${newContact.name} is already in contacts!`);
+    } else {
+      dispatch(addContact(newContact));
+      event.target.reset();
+    };
   };
 
   return (
